@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Entity
 @Getter
 @Table(name = "canvas_image")
@@ -22,9 +24,13 @@ public class Image {
     private String titie;
     private String image;
 
+    private String uuid;
+
+
     @Builder
     public Image(String titie, String image) {
         this.titie = titie;
         this.image = image;
+        this.uuid = UUID.randomUUID().toString();
     }
 }

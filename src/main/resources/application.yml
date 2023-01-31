@@ -7,7 +7,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -17,13 +17,6 @@ spring:
         format_sql: true
         show_sql: true
     open-in-view: false
-
-  data:
-    web:
-      pageable:
-        default-page-size: 100
-        max-page-size: 2000
-    one-indexed-parameters: on #1?? ????
 
   servlet:
     multipart:

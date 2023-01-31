@@ -1,6 +1,7 @@
 package kr.co.carroteditor.domain.image;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +19,7 @@ import java.util.UUID;
 public class ImageService {
 
     private final ImageRepository repository;
+
     static final String FILEPATH = "C:\\study-project\\spring\\CarrotEditor\\src\\main\\resources\\images\\";
 
 
@@ -34,13 +36,10 @@ public class ImageService {
             throw new ImageSaveFailException();
         }
 
-//
-//        LocalDateTime time = LocalDateTime.now();
-//        time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String uuid = UUID.randomUUID().toString();
-        String fullPath = FILEPATH + uuid + "." + ext[1];
+        String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_DD_ss_SSSS"));
+        String fullPath = FILEPATH + now + "." + ext[1];
         multipartFile.transferTo(new File(fullPath));
-        Image image = new Image(uuid, fullPath);
+        Image image = new Image(now, fullPath);
         repository.save(image);
     }
 
@@ -58,4 +57,7 @@ public class ImageService {
         return repository.findAll();
     }
 
+    public Image getImage(String uuid) {
+        return  repository.findByUuid(uuid);
+    }
 }
